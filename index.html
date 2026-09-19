@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PAIRX_ — Diseño y desarrollo web</title>
+<meta name="description" content="PAIRX_ diseña y desarrolla páginas web a la medida en Colombia. Precios claros desde $180.000 COP, código que puedes revisar y entregas en días, no semanas.">
+<meta property="og:title" content="PAIRX_ — Diseño y desarrollo web">
+<meta property="og:description" content="Páginas web a la medida, con precio fijo y código que puedes revisar.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0B;
+    --surface: #131315;
+    --surface-2: #1B1B1E;
+    --red: #E11D2E;
+    --red-deep: #8C0F1F;
+    --white: #F5F5F3;
+    --muted: #8F8F94;
+    --border: rgba(245,245,243,0.09);
+    --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: sticky;
+    top: 0;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    background: rgba(10,10,11,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .logo span { color: var(--red); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .nav-links a { transition: color 0.2s ease; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--red);
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    transition: background 0.2s ease;
+  }
+  .nav-cta:hover { background: var(--red-deep); }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  .mobile-links {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 0 20px;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-links a, .mobile-links button {
+    padding: 12px 4px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .mobile-links.open { display: flex; }
+
+  @media (max-width: 760px) {
+    .nav-links, .nav-cta.desktop-only { display: none; }
+    .nav-toggle { display: inline-block; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 120px 0 96px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 5.4vw, 4.1rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    max-width: 13ch;
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.5ch;
+    background: var(--red);
+    color: var(--red);
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-mark {
+    width: 108px;
+    height: 108px;
+    flex-shrink: 0;
+  }
+  .hero-mark path {
+    stroke-dasharray: 340;
+    stroke-dashoffset: 340;
+    animation: draw 1.4s 0.3s cubic-bezier(0.65,0,0.35,1) forwards;
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .hero p.lead {
+    margin-top: 28px;
+    font-size: 1.08rem;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 26px;
+    background: var(--red);
+    color: var(--white);
+    font-weight: 500;
+    font-size: 0.98rem;
+    border: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .btn-primary:hover { background: var(--red-deep); transform: translateY(-1px); }
+  .btn-ghost {
+    font-size: 0.95rem;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+  .reveal-init {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.7s ease forwards;
+  }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.35s; }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- SECTION HEADS ---------- */
+  section { padding: 96px 0; border-bottom: 1px solid var(--border); }
+  .section-head { margin-bottom: 52px; max-width: 60ch; }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    letter-spacing: -0.01em;
+  }
+  .section-head p {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  /* ---------- DIFERENCIALES ---------- */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .diff-card { background: var(--bg); padding: 32px 28px; }
+  .diff-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .diff-card p { color: var(--muted); font-size: 0.94rem; }
+  @media (max-width: 760px) { .diff-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- PLANES ---------- */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .plan-card {
+    border: 1px solid var(--border);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+  }
+  .plan-card.featured {
+    background: var(--red);
+    border-color: var(--red);
+  }
+  .plan-tag {
+    font-size: 0.78rem;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .plan-card.featured .plan-tag { color: rgba(245,245,243,0.85); }
+  .plan-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .plan-price {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .plan-price small { font-family: var(--font-body); font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+  .plan-card.featured .plan-price small { color: rgba(245,245,243,0.75); }
+  .plan-note { font-size: 0.85rem; color: var(--muted); margin-bottom: 26px; }
+  .plan-card.featured .plan-note { color: rgba(245,245,243,0.8); }
+  .plan-card ul { flex-grow: 1; margin-bottom: 28px; }
+  .plan-card li {
+    font-size: 0.92rem;
+    padding: 9px 0;
+    border-top: 1px solid var(--border);
+    color: var(--white);
+    opacity: 0.9;
+  }
+  .plan-card.featured li { border-top-color: rgba(245,245,243,0.2); }
+  .plan-btn {
+    display: block;
+    text-align: center;
+    padding: 13px;
+    border: 1px solid var(--white);
+    background: none;
+    color: var(--white);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .plan-btn:hover { background: var(--white); color: var(--bg); }
+  .plan-card.featured .plan-btn { border-color: var(--white); }
+  .plan-card.featured .plan-btn:hover { background: var(--bg); color: var(--white); border-color: var(--bg); }
+
+  @media (max-width: 900px) {
+    .plans-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- PROCESO ---------- */
+  .proceso-list { display: flex; flex-direction: column; }
+  .proceso-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+  }
+  .proceso-item:last-child { border-bottom: 1px solid var(--border); }
+  .proceso-num {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--red);
+    font-weight: 600;
+  }
+  .proceso-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .proceso-item p { color: var(--muted); font-size: 0.95rem; max-width: 55ch; }
+
+  /* ---------- CONTACTO ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 60px;
+  }
+  .contact-info h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin-bottom: 16px;
+  }
+  .contact-info p { color: var(--muted); margin-bottom: 28px; max-width: 42ch; }
+  .contact-channel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .contact-channel:last-child { border-bottom: 1px solid var(--border); }
+  .contact-channel .dot { width: 6px; height: 6px; background: var(--red); flex-shrink: 0; }
+  .contact-channel a:hover { color: var(--red); }
+
+  form { display: flex; flex-direction: column; gap: 16px; }
+  .field label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 13px 14px;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--red);
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .field-row, .contact-grid { grid-template-columns: 1fr; } }
+
+  .submit-btn {
+    align-self: flex-start;
+    margin-top: 6px;
+    padding: 14px 28px;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s ease;
+  }
+  .submit-btn:hover { background: var(--red-deep); }
+  .form-note { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- FOOTER ---------- */
+  footer { padding: 36px 0; }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .footer-inner .logo { font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#inicio" class="logo">PAIRX<span>_</span></a>
+    <nav class="nav-links">
+      <a href="#diferenciales">Nosotros</a>
+      <a href="#planes">Planes</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="#contacto" class="nav-cta desktop-only">Empezar proyecto</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu">Menú</button>
+  </div>
+  <div class="wrap mobile-links" id="mobileMenu">
+    <a href="#diferenciales">Nosotros</a>
+    <a href="#planes">Planes</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 class="reveal-init d1">Diseño y desarrollo web, hecho a tu medida<span class="cursor">_</span></h1>
+        <p class="lead reveal-init d2">PAIRX_ diseña y construye sitios rápidos y claros, con precios definidos desde el primer día — sin sorpresas ni relleno.</p>
+        <div class="hero-actions reveal-init d3">
+          <a href="#planes" class="btn-primary">Ver planes</a>
+          <a href="#proceso" class="btn-ghost">Cómo trabajamos</a>
+        </div>
+      </div>
+      <svg class="hero-mark reveal-init d2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 15 L20 85 M20 15 L55 15 Q75 15 75 35 Q75 55 55 55 L20 55" stroke="#E11D2E" stroke-width="6" stroke-linecap="square"/>
+        <path d="M60 55 L82 85" stroke="#F5F5F3" stroke-width="6" stroke-linecap="square"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="diferenciales">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Por qué PAIRX_</h2>
+        <p>Tres decisiones que tomamos en cada proyecto, sin excepción.</p>
+      </div>
+      <div class="diff-grid reveal">
+        <div class="diff-card">
+          <h3>Diseño a medida</h3>
+          <p>Cada proyecto parte de cero según tu negocio real, no de una plantilla reciclada.</p>
+        </div>
+        <div class="diff-card">
+          <h3>Código que puedes revisar</h3>
+          <p>Nada de cajas negras: entregamos un sitio limpio, ordenado y fácil de mantener.</p>
+        </div>
+        <div class="diff-card">
+          <h3>Precios claros desde el inicio</h3>
+          <p>Sabes exactamente qué pagas y qué recibes antes de empezar a trabajar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="planes">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Planes</h2>
+        <p>Tres opciones directas. Elige según el tamaño de tu proyecto.</p>
+      </div>
+      <div class="plans-grid reveal">
+
+        <div class="plan-card">
+          <span class="plan-tag">Landing</span>
+          <h3>Básico</h3>
+          <div class="plan-price">$180.000 <small>COP</small></div>
+          <div class="plan-note">Entrega en 3–5 días</div>
+          <ul>
+            <li>1 página (one-page)</li>
+            <li>Diseño responsive</li>
+            <li>Formulario de contacto</li>
+            <li>Dominio incluido 1 año</li>
+          </ul>
+          <a href="#contacto" class="plan-btn" data-plan="Básico — Landing">Elegir plan</a>
+        </div>
+
+        <div class="plan-card featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Sitio Web</h3>
+          <div class="plan-price">$450.000 <small>COP</small></div>
+          <div class="plan-note">Entrega en 7–10 días</div>
+          <ul>
+            <li>Hasta 5 páginas</li>
+            <li>SEO on-page básico</li>
+            <li>Integración con WhatsApp</li>
+            <li>1 ronda de revisiones</li>
+          </ul>
+          <a href="#contacto" class="plan-btn" data-plan="Pro — Sitio Web">Elegir plan</a>
+        </div>
+
+        <div class="plan-card">
+          <span class="plan-tag">A medida</span>
+          <h3>E-commerce</h3>
+          <div class="plan-price">Cotización</div>
+          <div class="plan-note">Entrega en 15–20 días</div>
+          <ul>
+            <li>Páginas ilimitadas o tienda online</li>
+            <li>Panel para editar contenido</li>
+            <li>Pasarela de pagos</li>
+            <li>Soporte post-entrega (1 mes)</li>
+          </ul>
+          <a href="#contacto" class="plan-btn" data-plan="Premium — E-commerce">Elegir plan</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="proceso">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Cómo trabajamos</h2>
+        <p>Tres pasos, sin vueltas innecesarias.</p>
+      </div>
+      <div class="proceso-list reveal">
+        <div class="proceso-item">
+          <span class="proceso-num">01</span>
+          <div>
+            <h3>Diagnóstico</h3>
+            <p>Hablamos de tu negocio, tu objetivo con la web y el plan que mejor se ajusta.</p>
+          </div>
+        </div>
+        <div class="proceso-item">
+          <span class="proceso-num">02</span>
+          <div>
+            <h3>Diseño y desarrollo</h3>
+            <p>Construimos el sitio con avances visibles y espacio para tus ajustes en el camino.</p>
+          </div>
+        </div>
+        <div class="proceso-item">
+          <span class="proceso-num">03</span>
+          <div>
+            <h3>Entrega y soporte</h3>
+            <p>Publicamos tu web y te acompañamos si algo necesita cambiar después del lanzamiento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" style="border-bottom:none;">
+    <div class="wrap contact-grid">
+      <div class="contact-info reveal">
+        <h2>Empecemos tu proyecto</h2>
+        <p>Cuéntanos qué necesitas y te respondemos con el detalle del plan y el tiempo de entrega.</p>
+        <div class="contact-channel">
+          <span class="dot"></span>
+          <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp — +57 XXX XXX XXXX</a>
+        </div>
+        <div class="contact-channel">
+          <span class="dot"></span>
+          <a href="mailto:pairx.contact@gmail.com">pairx.contact@gmail.com</a>
+        </div>
+      </div>
+
+      <form id="contactForm" class="reveal">
+        <div class="field-row">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="field">
+            <label for="correo">Email o WhatsApp</label>
+            <input type="text" id="correo" name="correo" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="plan">Plan de interés</label>
+          <select id="plan" name="plan">
+            <option value="Básico — Landing">Básico — Landing</option>
+            <option value="Pro — Sitio Web" selected>Pro — Sitio Web</option>
+            <option value="Premium — E-commerce">Premium — E-commerce</option>
+            <option value="No estoy seguro">No estoy seguro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mensaje">Cuéntanos sobre tu proyecto</label>
+          <textarea id="mensaje" name="mensaje" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Enviar mensaje</button>
+        <p class="form-note" id="formNote">Se abrirá tu app de correo con el mensaje listo para enviar.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <a href="#inicio" class="logo">PAIRX<span style="color:var(--red)">_</span></a>
+    <span>© 2026 PAIRX_. Todos los derechos reservados.</span>
+  </div>
+</footer>
+
+<script>
+  // Menú móvil
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Revelado al hacer scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Preseleccionar plan al hacer click en "Elegir plan"
+  document.querySelectorAll('.plan-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const planSelect = document.getElementById('plan');
+      const value = btn.getAttribute('data-plan');
+      if (planSelect) {
+        [...planSelect.options].forEach(opt => {
+          if (opt.value === value) planSelect.value = value;
+        });
+      }
+    });
+  });
+
+  // Formulario -> abre cliente de correo con los datos (sitio estático, sin backend)
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const correo = document.getElementById('correo').value;
+    const plan = document.getElementById('plan').value;
+    const mensaje = document.getElementById('mensaje').value;
+    const body = `Nombre: ${nombre}%0AContacto: ${correo}%0APlan de interés: ${plan}%0A%0AMensaje:%0A${mensaje}`;
+    window.location.href = `mailto:pairx.contact@gmail.com?subject=Nuevo proyecto — ${encodeURIComponent(plan)}&body=${body}`;
+  });
+</script>
+
+</body>
+</html>
